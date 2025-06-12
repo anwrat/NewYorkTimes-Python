@@ -11,6 +11,8 @@ def main():
     print(f"{current_date} {day}")
     print("Hello this is New York Times")
     search_term = input("Enter a search term: ")
+    print("Displaying results.....")
+    print("\n\n")
     search_results = search_articles(search_term)
     display_results(search_results)
 
@@ -24,7 +26,18 @@ def search_articles(search_term):
     return response.json()
 
 def display_results(search_results):
-    print(search_results)
+    # The docs dictionary inside reponse contains all the articles
+    docs = search_results["response"]["docs"]
+    i = 0
+    # Iterating through each article
+    for doc in docs:
+        i += 1
+        article_web_url = doc["web_url"]
+        article_headline = doc["headline"]["main"]
+        print(f"Article no {i}")
+        print(article_headline)
+        print(f"URL: ({article_web_url})")
+        print("\n\n")
 
 if __name__ == '__main__':
     main()
